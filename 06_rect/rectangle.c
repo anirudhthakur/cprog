@@ -60,11 +60,6 @@ rectangle intersection(rectangle r1, rectangle r2) {
     r.width = 0;
     r.height = 0;
   }
-  //check for non-intersecting squares that share a border
-/*  else if () {
-    
-  }
-*/
   else {
     r.width = (r.width - r.x);
     r.height = (r.height - r.y);
