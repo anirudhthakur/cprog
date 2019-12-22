@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//I've provided "min" and "max" functions in
-//case they are useful to you
 int min (int a, int b) {
   if (a < b) {
     return a;
@@ -46,9 +44,7 @@ rectangle intersection(rectangle r1, rectangle r2) {
   r.y = max(r1.y, r2.y);
   //set the top right of the intersection
   r.width = min((r1.x + r1.width), (r2.x + r2.width));
-  //r.width = (temp - r.x);
   r.height = min((r1.y + r1.height), (r2.y + r2.height));
-  //r.height = (temp - r.y);
   //if r1 and r2 don't intersect, return height & width equal 0
   //if the max of r1.x and r2.x is greater than min of r1.x + r1.width and r2x + r2.width
   if (((r.x) > (r.width))) {
