@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 //I've provided "min" and "max" functions in
 //case they are useful to you
 int min (int a, int b) {
@@ -15,16 +16,60 @@ int max (int a, int b) {
   return b;
 }
 
-//Declare your rectangle structure here!
-
+typedef struct rectangle_t {
+  int x, y, width, height;
+} rectangle;
 
 rectangle canonicalize(rectangle r) {
-  //WRITE THIS FUNCTION
+  if (r.width < 0) {
+    r.x = r.x + r.width;
+    r.width = r.width - (2 * r.width);
+  }
+  if (r.height < 0) {
+    r.y = r.y + r.height;
+    r.height = r.height - (2 * r.height);
+  }
   return r;
 }
 rectangle intersection(rectangle r1, rectangle r2) {
-  //WRITE THIS FUNCTION
-  return r1;
+  //standardize the input with canonicalize
+  r1 = canonicalize(r1);
+  r2 = canonicalize(r2);
+  //if r1 and r2 are equal, return r1
+  if ( ((r1.x == r2.x) && (r1.y == r2.y)) && ((r1.width == r2.width) && (r1.height == r2.height)) ) {
+    return r1;
+  }
+  //declare the intersection, rectangle r
+  rectangle r;
+  //set the bottom left of the intersection
+  r.x = max(r1.x, r2.x);
+  r.y = max(r1.y, r2.y);
+  //set the top right of the intersection
+  r.width = min((r1.x + r1.width), (r2.x + r2.width));
+  //r.width = (temp - r.x);
+  r.height = min((r1.y + r1.height), (r2.y + r2.height));
+  //r.height = (temp - r.y);
+  //if r1 and r2 don't intersect, return height & width equal 0
+  //if the max of r1.x and r2.x is greater than min of r1.x + r1.width and r2x + r2.width
+  if (((r.x) > (r.width))) {
+    r.width = 0;
+    r.height = 0;
+  }
+  //or min r1 y + width and r2 y + width is greather than max of r1.y and r2.y
+  else if ((r.y) > (r.height)) {
+    r.width = 0;
+    r.height = 0;
+  }
+  //check for non-intersecting squares that share a border
+/*  else if () {
+    
+  }
+*/
+  else {
+    r.width = (r.width - r.x);
+    r.height = (r.height - r.y);
+  }
+  return r;
 }
 
 //You should not need to modify any code below this line
